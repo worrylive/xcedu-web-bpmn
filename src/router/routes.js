@@ -1,7 +1,7 @@
 const routes = {
   name: 'layout',
-  path: '/mfs-xxx',
-  redirect: '/mfs-xxx/home',
+  path: '/mfs-bpmn',
+  redirect: '/mfs-bpmn/home',
   component: () => import('@page/layout.vue'),
   children: [{
     name: 'home',
