@@ -2,21 +2,28 @@
   <div>
     <el-button @click="changeDiagram">切换图表</el-button>
     <div class="diagram-container">
-      <vue-bpmn
+      <bpmn-viewer
         :url="publicPath + urls[currentUrlIndex]"
         @error="handleError"
         @shown="handleShown"
+      />
+    </div>
+    <div class="diagram-container">
+      <bpmn-modeler
+        :url="publicPath + urls[currentUrlIndex]"
       />
     </div>
   </div>
 </template>
 
 <script>
-import VueBpmn from '@component/VueBpmn'
+import BpmnViewer from '@component/BpmnViewer'
+import BpmnModeler from '@component/BpmnModeler'
 
 export default {
   components: {
-    VueBpmn
+    BpmnViewer,
+    BpmnModeler
   },
   data () {
     return {

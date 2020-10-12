@@ -297,6 +297,11 @@ const baseConf = (env = 'production') => ({
           esModule: false
         }
       }]
+    }, {
+      test: /\.(eot|svg|ttf|woff|woff2)(\?\S*)?$/,
+      use: [{
+        loader: 'file-loader'
+      }]
     }]
   },
   plugins: [

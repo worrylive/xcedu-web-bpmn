@@ -9,7 +9,7 @@ import BpmnViewer from 'bpmn-js/dist/bpmn-navigated-viewer.production.min.js'
 // import BpmnViewer from 'bpmn-js'
 
 export default {
-  name: 'VueBpmn',
+  name: 'BpmnViewer',
   props: {
     url: {
       type: String,
