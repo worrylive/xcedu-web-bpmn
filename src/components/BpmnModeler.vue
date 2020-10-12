@@ -10,7 +10,7 @@ export default {
   props: {
     url: {
       type: String,
-      required: true
+      default: ''
     }
   },
   data: function () {
@@ -49,13 +49,13 @@ export default {
           return response.data
         })
         .then(function (text) {
-          self.openDiagram(text)
+          self.importDiagram(text)
         })
         .catch(function (err) {
           self.$emit('error', err)
         })
     },
-    openDiagram: function (val) {
+    importDiagram: function (val) {
       var self = this
       this.bpmnModeler.importXML(val).then(function (result) {
         const { warnings } = result
@@ -63,13 +63,15 @@ export default {
         self.bpmnModeler.get('canvas').zoom('fit-viewport')
       }).catch(function (err) {
         self.$emit('error', err)
+        throw err
       })
     },
     exportDiagram: function () {
-      this.bpmnModeler.saveXML({ format: true }).then(function (result) {
+      return this.bpmnModeler.saveXML({ format: true }).then(function (result) {
         return result.xml
       }).catch(function (err) {
         console.error('could not save BPMN 2.0 diagram', err)
+        throw err
       })
     }
   }
