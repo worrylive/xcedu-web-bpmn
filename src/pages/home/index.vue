@@ -28,7 +28,7 @@
 
 <script>
 import BpmnViewer from '@component/BpmnViewer'
-import BpmnModeler from '@component/BpmnModeler'
+import BpmnModeler from '@component/BpmnModeler/index'
 
 export default {
   components: {
@@ -88,6 +88,13 @@ export default {
   }
 }
 </script>
+
+<style>
+  /* 去除bpmn.io水印 */
+  .bjs-powered-by {
+    display: none;
+  }
+</style>
 
 <style scoped>
   .diagram-container {
