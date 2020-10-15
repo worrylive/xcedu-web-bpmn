@@ -10,13 +10,14 @@
       <el-button>导入图表</el-button>
     </el-upload>
     <el-button @click="exportDiagram">导出图表</el-button>
+    <el-button @click="setProcessProperty">流程属性</el-button>
     <div class="diagram-container">
       <bpmn-modeler
         ref="modeler"
         :url="publicPath + urls[currentUrlIndex]"
       />
     </div>
-    <div class="diagram-container">
+    <div v-if="testViewerOn" class="diagram-container">
       <bpmn-viewer
         :url="publicPath + urls[currentUrlIndex]"
         @error="handleError"
@@ -42,7 +43,8 @@ export default {
         'diagram.bpmn',
         'pizza-collaboration.bpmn'
       ],
-      currentUrlIndex: 0
+      currentUrlIndex: 0,
+      testViewerOn: false
     }
   },
   methods: {
@@ -78,6 +80,9 @@ export default {
           document.body.removeChild(a)
         }
       })
+    },
+    setProcessProperty: function () {
+      this.$refs.modeler.setProcessProperty()
     },
     handleError: function (err) {
       console.error('failed to show diagram', err)

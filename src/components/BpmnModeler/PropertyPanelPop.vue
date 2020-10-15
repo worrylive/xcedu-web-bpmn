@@ -83,9 +83,13 @@
 
 <script>
 export default {
-  name: 'PropertyPanel',
+  name: 'PropertyPanelPop',
   props: {
     modeler: {
+      type: Object,
+      required: true
+    },
+    element: {
       type: Object,
       required: true
     }
@@ -97,7 +101,6 @@ export default {
         name: '',
         color: null
       },
-      element: {},
       users: [
         {
           value: 'zhangsan',
@@ -143,35 +146,20 @@ export default {
     }
   },
   mounted () {
-    this.handleModeler()
+    this.handleElement()
   },
   methods: {
-    handleModeler () {
-      // 监听节点选择变化
-      this.modeler.on('selection.changed', e => {
-        const element = e.newSelection[0]
-        this.element = element
-        if (!element) return
-        this.form = {
-          ...element.businessObject,
-          ...element.businessObject.$attrs
-        }
-        if (this.element.type === 'bpmn:UserTask' && this.form.userType === 'candidateUsers') {
-          this.form.candidateUsers =
-            this.form.candidateUsers.split(',') || []
-        }
-      })
-
-      //  监听节点属性变化
-      this.modeler.on('element.changed', e => {
-        const { element } = e
-        if (!element) return
-        //  新增节点需要更新回属性面板
-        if (element.id === this.form.id) {
-          this.form.name = element.businessObject.name
-          this.form = { ...this.form }
-        }
-      })
+    handleElement () {
+      const element = this.element
+      if (!element) return
+      this.form = {
+        ...element.businessObject,
+        ...element.businessObject.$attrs
+      }
+      if (this.element.type === 'bpmn:UserTask' && this.form.userType === 'candidateUsers') {
+        this.form.candidateUsers =
+          this.form.candidateUsers.split(',') || []
+      }
     },
     // 属性面板名称，更新回流程节点
     nameChange (name) {

@@ -1,19 +1,47 @@
 <template>
   <div class="modeler-wrapper">
     <div ref="container" class="vue-bpmn-diagram-container" />
-    <panel v-if="bpmnModeler" :modeler="bpmnModeler" />
+    <div v-if="testPanelOn" class="property-panel-container">
+      <panel v-if="bpmnModeler" :modeler="bpmnModeler" />
+    </div>
+    <el-dialog
+      :close-on-click-modal="false"
+      title="节点属性"
+      :visible.sync="panelVisible"
+      width="50%"
+    >
+      <panel-pop v-if="panelVisible && bpmnModeler" :element="selectedElement" :modeler="bpmnModeler" />
+      <!--<div slot="footer">
+        <el-button type="primary" @click="">保存</el-button>
+      </div>-->
+    </el-dialog>
+    <el-dialog
+      :close-on-click-modal="false"
+      title="流程属性"
+      :visible.sync="processPanelVisible"
+      width="50%"
+    >
+      <process-panel v-if="processPanelVisible && bpmnModeler" :process-data="process" />
+      <!--<div slot="footer">
+        <el-button type="primary" @click="">保存</el-button>
+      </div>-->
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import BpmnModeler from 'bpmn-js/dist/bpmn-modeler.production.min.js'
-import panel from './PropertyPanel' // 属性面板
+import panel from './PropertyPanel' // 节点属性面板
+import panelPop from './PropertyPanelPop' // 弹出式节点属性面板
+import processPanel from './ProcessPropertyPanel' // 流程属性面板
 import BpmData from './BpmData'
 
 export default {
   name: 'BpmnModeler',
   components: {
-    panel
+    panel,
+    panelPop,
+    processPanel
   },
   props: {
     url: {
@@ -24,7 +52,16 @@ export default {
   data: function () {
     return {
       bpmnModeler: null,
-      bpmData: new BpmData()
+      bpmData: new BpmData(),
+      panelVisible: false,
+      selectedElement: null,
+      processPanelVisible: false,
+      process: {
+        name: '流程1567044459787',
+        id: 'process1567044459787',
+        description: '描述'
+      },
+      testPanelOn: false
     }
   },
   watch: {
@@ -72,6 +109,7 @@ export default {
         self.$emit('shown', warnings)
         self.bpmnModeler.get('canvas').zoom('fit-viewport')
         self.adjustPalette()
+        self.addDbClickHandler()
       }).catch(function (err) {
         self.$emit('error', err)
         throw err
@@ -136,6 +174,24 @@ export default {
       } catch (e) {
         console.log(e)
       }
+    },
+    // 添加双击事件响应
+    addDbClickHandler: function () {
+      var that = this
+      var eventBus = this.bpmnModeler.get('eventBus')
+      eventBus.on('element.dblclick', function (e) {
+        // e.element = the model element
+        // e.gfx = the graphical element
+        if (e.element.type === 'bpmn:Collaboration') {
+          that.processPanelVisible = true
+          return
+        }
+        that.selectedElement = e.element
+        that.panelVisible = true
+      })
+    },
+    setProcessProperty: function () {
+      this.processPanelVisible = true
     }
   }
 }
@@ -145,6 +201,8 @@ export default {
   /* 左边工具栏以及编辑节点的样式 */
   @import "~bpmn-js/dist/assets/diagram-js.css";
   @import "~bpmn-js/dist/assets/bpmn-font/css/bpmn.css";
+  @import "~bpmn-js/dist/assets/bpmn-font/css/bpmn-codes.css";
+  @import "~bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css";
 
   .modeler-wrapper {
     position: relative;
@@ -156,5 +214,15 @@ export default {
   .vue-bpmn-diagram-container {
     height: 100%;
     width: 100%;
+  }
+
+  .property-panel-container {
+    position: absolute;
+    right: 0;
+    top: 0;
+    border-left: 1px solid #cccccc;
+    padding: 20px 5px;
+    width: 300px;
+    height: 100%;
   }
 </style>
