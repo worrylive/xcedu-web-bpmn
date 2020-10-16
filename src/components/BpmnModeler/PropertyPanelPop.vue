@@ -10,6 +10,9 @@
       <el-form-item label="节点颜色">
         <el-color-picker v-model="form.color" @change="colorChange" />
       </el-form-item>
+      <!--<el-form-item label="必须项">
+        <el-input v-model="form.required" @input="itemChange($event, 'required')" />
+      </el-form-item>-->
       <!-- 任务节点允许选择人员 -->
       <el-form-item v-if="userTask" label="节点人员">
         <el-select v-model="form.userType" placeholder="请选择" @change="typeChange">
@@ -174,6 +177,12 @@ export default {
         stroke: color
       })
       modeling.updateProperties(this.element, { color: color })
+    },
+    itemChange (value, key) {
+      const modeling = this.modeler.get('modeling')
+      var p = {}
+      p[key] = value
+      modeling.updateProperties(this.element, p)
     },
     // 任务节点配置人员
     addUser (properties) {

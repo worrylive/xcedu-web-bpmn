@@ -21,7 +21,7 @@
       :visible.sync="processPanelVisible"
       width="50%"
     >
-      <process-panel v-if="processPanelVisible && bpmnModeler" :process-data="process" />
+      <process-panel v-if="processPanelVisible && bpmnModeler" :element="selectedElement" :modeler="bpmnModeler" />
       <!--<div slot="footer">
         <el-button type="primary" @click="">保存</el-button>
       </div>-->
@@ -56,11 +56,6 @@ export default {
       panelVisible: false,
       selectedElement: null,
       processPanelVisible: false,
-      process: {
-        name: '流程1567044459787',
-        id: 'process1567044459787',
-        description: '描述'
-      },
       testPanelOn: false
     }
   },
@@ -182,16 +177,25 @@ export default {
       eventBus.on('element.dblclick', function (e) {
         // e.element = the model element
         // e.gfx = the graphical element
-        if (e.element.type === 'bpmn:Collaboration') {
+        if (e.element.type === 'bpmn:Process') {
+          that.selectedElement = e.element
           that.processPanelVisible = true
           return
         }
+        const modeling = that.bpmnModeler.get('modeling')
+        modeling.updateProperties(e.element, {}) // 覆盖默认的双击编辑名称
         that.selectedElement = e.element
         that.panelVisible = true
       })
     },
     setProcessProperty: function () {
-      this.processPanelVisible = true
+      const elementRegistry = this.bpmnModeler.get('elementRegistry')
+      this.selectedElement = elementRegistry.filter(item => {
+        return item.type === 'bpmn:Process'
+      })[0]
+      if (this.selectedElement) {
+        this.processPanelVisible = true
+      }
     }
   }
 }

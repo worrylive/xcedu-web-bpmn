@@ -1,18 +1,18 @@
 <template>
   <div ref="processPropertyPanel" class="property-panel">
     <el-form
-      :model="processData"
+      :model="form"
       label-width="100px"
       size="small"
     >
-      <el-form-item label="流程名称">
-        <el-input v-model="processData.name" />
-      </el-form-item>
       <el-form-item label="流程Key">
-        <el-input v-model="processData.id" disabled />
+        <el-input v-model="form.id" disabled />
+      </el-form-item>
+      <el-form-item label="流程名称">
+        <el-input v-model="form.name" @input="itemChange($event, 'name')" />
       </el-form-item>
       <el-form-item label="流程描述">
-        <el-input v-model="processData.description" />
+        <el-input v-model="form.description" @input="itemChange($event, 'description')" />
       </el-form-item>
     </el-form>
   </div>
@@ -22,13 +22,41 @@
 export default {
   name: 'ProcessPropertyPanel',
   props: {
-    processData: {
+    modeler: {
+      type: Object,
+      required: true
+    },
+    element: {
       type: Object,
       required: true
     }
   },
   data () {
     return {
+      form: {
+        id: '',
+        name: '',
+        description: ''
+      }
+    }
+  },
+  mounted () {
+    this.handleElement()
+  },
+  methods: {
+    handleElement () {
+      const element = this.element
+      if (!element) return
+      this.form = {
+        ...element.businessObject,
+        ...element.businessObject.$attrs
+      }
+    },
+    itemChange (value, key) {
+      const modeling = this.modeler.get('modeling')
+      var p = {}
+      p[key] = value
+      modeling.updateProperties(this.element, p)
     }
   }
 }
