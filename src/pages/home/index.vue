@@ -11,6 +11,8 @@
     </el-upload>
     <el-button @click="exportDiagram">导出图表</el-button>
     <el-button @click="setProcessProperty">流程属性</el-button>
+    <el-button @click="handleUndo">撤销</el-button>
+    <el-button @click="handleRedo">重做</el-button>
     <div class="diagram-container">
       <bpmn-modeler
         ref="modeler"
@@ -89,6 +91,12 @@ export default {
     },
     handleShown: function () {
       console.log('diagram shown')
+    },
+    handleUndo: function () {
+      this.$refs.modeler.undo()
+    },
+    handleRedo: function () {
+      this.$refs.modeler.redo()
     }
   }
 }

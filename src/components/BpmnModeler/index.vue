@@ -196,6 +196,12 @@ export default {
       if (this.selectedElement) {
         this.processPanelVisible = true
       }
+    },
+    undo: function () {
+      this.bpmnModeler.get('commandStack').undo()
+    },
+    redo: function () {
+      this.bpmnModeler.get('commandStack').redo()
     }
   }
 }
