@@ -42,6 +42,7 @@ export default {
     return {
       publicPath: process.env.WEB_PUBLIC_PATH,
       urls: [
+        'init.bpmn',
         'diagram.bpmn',
         'pizza-collaboration.bpmn'
       ],

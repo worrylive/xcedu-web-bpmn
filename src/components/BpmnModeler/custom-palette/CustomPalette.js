@@ -66,7 +66,7 @@ PaletteProvider.prototype.getPaletteEntries = function (element) {
     }
   }
 
-  /*function createSubprocess (event) {
+  /* function createSubprocess (event) {
     var subProcess = elementFactory.createShape({
       type: 'bpmn:SubProcess',
       x: 0,
@@ -86,11 +86,11 @@ PaletteProvider.prototype.getPaletteEntries = function (element) {
         autoSelect: [startEvent]
       }
     })
-  }*/
+  } */
 
- /* function createParticipant (event) {
+  /* function createParticipant (event) {
     create.start(event, elementFactory.createParticipantShape())
-  }*/
+  } */
 
   assign(actions, {
     'hand-tool': {

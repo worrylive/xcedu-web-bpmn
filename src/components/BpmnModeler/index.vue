@@ -30,11 +30,11 @@
 </template>
 
 <script>
-import BpmnModeler from './lib/bpmn-modeler.development.js' // 'bpmn-js/dist/bpmn-modeler.production.min.js'
+// import BpmnModeler from 'bpmn-js/dist/bpmn-modeler.development.js' // 'bpmn-js/dist/bpmn-modeler.production.min.js'
 import panel from './PropertyPanel' // 节点属性面板
 import panelPop from './PropertyPanelPop' // 弹出式节点属性面板
 import processPanel from './ProcessPropertyPanel' // 流程属性面板
-import BpmData from './BpmData'
+// import BpmData from './BpmData'
 
 import paletteProvider from './custom-palette'
 import contextPadProvider from './context-pad'
@@ -43,6 +43,9 @@ import flowableModdle from './jp-flowable-bpmn-moddle/resources/flowable'
 import baseModedle from './jp-flowable-bpmn-moddle/resources/base'
 
 import customRules from './custom-rules'
+
+require('./lib/bpmn-modeler.development.xc.js')
+const BpmnModeler = window.BpmnJS
 
 export default {
   name: 'BpmnModeler',

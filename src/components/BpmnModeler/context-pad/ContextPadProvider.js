@@ -5,8 +5,8 @@ import {
 } from 'min-dash'
 
 import {
-  is,
-  getBusinessObject
+  is
+  // getBusinessObject
 } from 'bpmn-js/lib/util/ModelUtil'
 
 import {
@@ -93,7 +93,7 @@ ContextPadProvider.prototype.getContextPadEntries = function (element) {
   var connect = this._connect
   var create = this._create
   // var popupMenu = this._popupMenu
-  var canvas = this._canvas
+  // var canvas = this._canvas
   var rules = this._rules
   var autoPlace = this._autoPlace
   var translate = this._translate
@@ -114,7 +114,7 @@ ContextPadProvider.prototype.getContextPadEntries = function (element) {
     modeling.removeElements([element])
   }
 
-  function getReplaceMenuPosition (element) {
+  /* function getReplaceMenuPosition (element) {
     var Y_OFFSET = 5
 
     var diagramContainer = canvas.getContainer()
@@ -132,7 +132,7 @@ ContextPadProvider.prototype.getContextPadEntries = function (element) {
     }
 
     return pos
-  }
+  } */
 
   /**
    * Create an append action
@@ -297,11 +297,9 @@ ContextPadProvider.prototype.getContextPadEntries = function (element) {
         !isEventType(businessObject, 'bpmn:IntermediateThrowEvent', 'bpmn:LinkEventDefinition') &&
         !isEventSubProcess(businessObject)) {
       if (is(businessObject, 'bpmn:UserTask')) {
-        // eslint-disable-next-line
-        debugger 
         var sourceRef = businessObject.get('outgoing')
-        var bo = getBusinessObject(businessObject)
-        var sourceRef2 = bo.get('outgoing')
+        // var bo = getBusinessObject(businessObject)
+        // var sourceRef2 = bo.get('outgoing')
         if (sourceRef.length > 0) {
           // console.log("111111");
         } else {
