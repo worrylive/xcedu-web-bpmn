@@ -23,14 +23,22 @@ export default class BpmData {
       },
       {
         action: 'create.exclusive-gateway',
-        title: '网关'
+        title: '互斥网关'
+      },
+      {
+        action: 'create.parallel-gateway',
+        title: '并行网关'
+      },
+      {
+        action: 'create.inclusive-gateway',
+        title: '包含网关'
       },
       {
         action: 'create.task',
         title: '任务'
       },
       {
-        action: 'create.user-task',
+        action: 'create.userTask',
         title: '用户任务'
       },
       {

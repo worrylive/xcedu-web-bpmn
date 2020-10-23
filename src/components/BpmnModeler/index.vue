@@ -30,11 +30,19 @@
 </template>
 
 <script>
-import BpmnModeler from 'bpmn-js/dist/bpmn-modeler.production.min.js'
+import BpmnModeler from './lib/bpmn-modeler.development.js' // 'bpmn-js/dist/bpmn-modeler.production.min.js'
 import panel from './PropertyPanel' // 节点属性面板
 import panelPop from './PropertyPanelPop' // 弹出式节点属性面板
 import processPanel from './ProcessPropertyPanel' // 流程属性面板
 import BpmData from './BpmData'
+
+import paletteProvider from './custom-palette'
+import contextPadProvider from './context-pad'
+import flowableExtensionModule from './jp-flowable-bpmn-moddle/lib'
+import flowableModdle from './jp-flowable-bpmn-moddle/resources/flowable'
+import baseModedle from './jp-flowable-bpmn-moddle/resources/base'
+
+import customRules from './custom-rules'
 
 export default {
   name: 'BpmnModeler',
@@ -52,7 +60,7 @@ export default {
   data: function () {
     return {
       bpmnModeler: null,
-      bpmData: new BpmData(),
+      // bpmData: new BpmData(),
       panelVisible: false,
       selectedElement: null,
       processPanelVisible: false,
@@ -70,6 +78,17 @@ export default {
 
     this.bpmnModeler = new BpmnModeler({
       container: container,
+
+      additionalModules: [
+        paletteProvider,
+        contextPadProvider,
+        flowableExtensionModule,
+        customRules
+      ],
+      moddleExtensions: {
+        flowable: flowableModdle,
+        base: baseModedle
+      },
       keyboard: {
         bindTo: window
       }
@@ -125,7 +144,7 @@ export default {
         const canvas = this.$refs.container
         const djsPalette = canvas.children[0].children[1].children[4]
         const djsPalStyle = {
-          width: '130px',
+          width: '60px',
           padding: '5px',
           background: 'white',
           left: '20px',
@@ -134,6 +153,8 @@ export default {
         for (var key in djsPalStyle) {
           djsPalette.style[key] = djsPalStyle[key]
         }
+
+        /*
         const palette = djsPalette.children[0]
         const allGroups = palette.children
         allGroups[0].style.display = 'none'
@@ -165,7 +186,7 @@ export default {
               }
             }
           }
-        }
+        } */
       } catch (e) {
         console.log(e)
       }

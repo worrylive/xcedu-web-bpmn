@@ -1,0 +1,197 @@
+{
+  "name": "Base",
+  "uri": "http://base.org/bpmn",
+  "prefix": "base",
+  "xml": {
+    "tagAlias": "lowerCase"
+  },
+  "associations": [],
+  "types": [ 
+    {
+      "name": "Assignable",
+      "extends": [ "bpmn:UserTask" ],
+      "properties": [
+        {
+          "name": "taskButtons",
+          "isAttr": true,
+          "type": "String"
+        } ,
+        {
+          "name": "editFieldIds",
+          "isAttr": true,
+          "type": "String"
+        }  ,
+        {
+          "name": "hiddenFieldIds",
+          "isAttr": true,
+          "type": "String"
+        }  ,
+        {
+          "name": "mustFieldIds",
+          "isAttr": true,
+          "type": "String"
+        }  ,
+        {
+          "name": "showFieldIds",
+          "isAttr": true,
+          "type": "String"
+        } ,
+        {
+          "name": "actneedRead",
+          "isAttr": true,
+          "type": "String"
+        } ,
+        {
+          "name": "actnullSkip",
+          "isAttr": true,
+          "type": "String"
+        } ,
+        {
+          "name": "actcanSkip",
+          "isAttr": true,
+          "type": "String"
+        } ,
+        {
+          "name": "actDealAutoChooseAll",
+          "isAttr": true,
+          "type": "String"
+        } ,
+        {
+          "name": "actReadAutoChooseAll",
+          "isAttr": true,
+          "type": "String"
+        } ,
+        {
+          "name": "actneedDueDate",
+          "isAttr": true,
+          "type": "String"
+        } ,
+        {
+          "name": "dueDateSelect",
+          "isAttr": true,
+          "type": "String"
+        } ,
+        {
+          "name": "actneedAutoComplete",
+          "isAttr": true,
+          "type": "String"
+        } ,
+        {
+          "name": "actneedRemindDueDate",
+          "isAttr": true,
+          "type": "String"
+        } ,
+        {
+          "name": "remindDueDateSelect",
+          "isAttr": true,
+          "type": "String"
+        } ,
+        {
+          "name": "formKeyName",
+          "isAttr": true,
+          "type": "String"
+        } ,
+        {
+          "name": "participantMode",
+          "isAttr": true,
+          "type": "String"
+        } ,
+        {
+          "name": "participantType",
+          "isAttr": true,
+          "type": "String"
+        } ,
+        {
+          "name": "participantShow",
+          "isAttr": true,
+          "type": "String"
+        } ,
+        {
+          "name": "participant",
+          "isAttr": true,
+          "type": "String"
+        } ,
+        {
+          "name": "participantRule",
+          "isAttr": true,
+          "type": "String"
+        } ,
+        {
+          "name": "commentField",
+          "isAttr": true,
+          "type": "String"
+        } ,
+        {
+          "name": "readparticipantType",
+          "isAttr": true,
+          "type": "String"
+        }  ,
+        {
+          "name": "readparticipantRule",
+          "isAttr": true,
+          "type": "String"
+        }  ,
+        {
+          "name": "readparticipant",
+          "isAttr": true,
+          "type": "String"
+        }  ,
+        {
+          "name": "readcommentField",
+          "isAttr": true,
+          "type": "String"
+        }  ,
+        {
+          "name": "readparticipantShow",
+          "isAttr": true,
+          "type": "String"
+        }  ,
+        {
+          "name": "owntype",
+          "isAttr": true,
+          "type": "String"
+        }  ,
+        {
+          "name": "taskButtons2",
+          "isAttr": true,
+          "type": "String"
+        } 
+      ]
+    } ,{
+      "name": "Process",
+      "isAbstract": true,
+      "extends": [
+        "bpmn:Process"
+      ],
+      "properties": [
+        {
+          "name": "useTableTree",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "processbuttype",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "commentSort",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "formType",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "formId",
+          "isAttr": true,
+          "type": "Boolean",
+          "default": true
+        }
+      ]
+    }
+  ],
+  "emumerations": [ ]
+}

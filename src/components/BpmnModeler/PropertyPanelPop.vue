@@ -148,6 +148,49 @@ export default {
       return this.element.type === 'bpmn:SequenceFlow'
     }
   },
+  watch: {
+    'form.name': {
+      handler (val) {
+        // 演示 任务、连线属性
+        if (this.element && this.element.type === 'bpmn:UserTask') {
+          this.element.businessObject.formKey = '2c90abb8750fedef0175103068b800cf'
+          this.element.businessObject.taskButtons = 'bpmsaveButton,bpmbackButton,bpmsendButton,bpmcompletereadButton,bpmrecallButton,bpmreacallreadButton,bpmprintButton,bpmsendReadButton,bpmfocusButton'
+          this.element.businessObject.editFieldIds = 'custom_auto_20201010094649113-column_1602294402036,custom_auto_20201010094649113-column_1602294404180'
+          this.element.businessObject.actneedRead = '1'
+          this.element.businessObject.actnullSkip = '1'
+          this.element.businessObject.actcanSkip = '1'
+          this.element.businessObject.actDealAutoChooseAll = '1'
+          this.element.businessObject.actReadAutoChooseAll = '1'
+          this.element.businessObject.actneedDueDate = '1'
+          this.element.businessObject.actneedAutoComplete = '1'
+          this.element.businessObject.actneedRemindDueDat = '1'
+          this.element.businessObject.formKeyName = '2c90abb8750fedef0175103068b800cf'
+          this.element.businessObject.participantMode = '2'
+          this.element.businessObject.participantType = 'defaultUser'
+          this.element.businessObject.participantRule = '2c90abb8750fedef0175103068b800cf'
+        }
+
+        if (this.element && this.element.type === 'bpmn:SequenceFlow') {
+          // this.element.businessObject.conditionExpression = 'ss>1'
+          // eslint-disable-next-line
+          debugger
+
+          var moddle = this.modeler.get('moddle')
+
+          const modeling = this.modeler.get('modeling')
+
+          var newCondition = moddle.create('bpmn:FormalExpression', {
+            // eslint-disable-next-line
+            body: '${value>100}'
+          })
+          // when
+          modeling.updateProperties(this.element, {
+            conditionExpression: newCondition
+          })
+        }
+      }
+    }
+  },
   mounted () {
     this.handleElement()
   },

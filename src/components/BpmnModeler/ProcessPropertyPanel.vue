@@ -40,6 +40,38 @@ export default {
       }
     }
   },
+  watch: {
+    'form.description': {
+      handler (val) {
+        this.element.businessObject.useTableTree = '2c90abb8750fedef0175103068b800cf'
+        this.element.businessObject.processbuttype = '0'
+        this.element.businessObject.flowType = '1'
+        this.element.businessObject.commentSort = '0'
+        this.element.businessObject.formType = '0'
+        this.element.businessObject.formId = '2c90abb8750fedef0175103068b800cf'
+
+        var moddle = this.modeler.get('moddle')
+
+        var extensionElements = this.element.businessObject.get('extensionElements')
+
+        if (!extensionElements) {
+          extensionElements = moddle.create('bpmn:ExtensionElements')
+        }
+
+        extensionElements = moddle.create('bpmn:ExtensionElements')
+        // key
+        var elemkey = moddle.create('flowable:xcField', { name: 'ssss' })
+        // value
+        var elemvalue = moddle.create('flowable:xcString', {
+          // eslint-disable-next-line
+          body: '${ value > 100 }'
+        })
+        elemkey.get('xcString').push(elemvalue)
+        extensionElements.get('values').push(elemkey)
+        this.modeler.get('modeling').updateProperties(this.element, { extensionElements: extensionElements })
+      }
+    }
+  },
   mounted () {
     this.handleElement()
   },

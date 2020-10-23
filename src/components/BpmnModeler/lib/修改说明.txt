@@ -1,0 +1,16 @@
+一.  ElementFactory$1.prototype._getDefaultSize  方法中
+	  if (is$1(semantic, 'bpmn:Task')) {
+	    return { width: 100, height: 50 };
+	  }
+
+  修改高度
+
+二.BodySerializer.prototype.serializeTo = function(writer) {
+	  writer.append( this.value );
+	  /*writer.append(
+	    this.escape
+	      ? escapeBody(this.value)
+	      : this.value
+	  );*/
+	};
+ 修改 body 不要 escape
